@@ -4,7 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+        attribute :approved, :boolean, default: false
+        attribute :role, :boolean, default: false
+
   def admin?
-    role == 'admin'
+    isAdmin
   end
 end
