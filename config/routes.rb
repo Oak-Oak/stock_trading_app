@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   devise_scope :user do
     authenticated :user do
@@ -9,12 +9,15 @@ Rails.application.routes.draw do
 
   namespace :admins do
     get 'dashboard', to: 'dashboard#index'
+    patch 'approve_trader/:id', to: 'dashboard#approve_trader', as: 'approve_trader'
+    delete 'reject_trader/:id', to: 'dashboard#reject_trader', as: 'reject_trader'
   end
 
   namespace :traders do
     get 'dashboard', to: 'dashboard#index'
   end
 
+  resources :traders 
   # Define root route for unauthenticated users (sign-in page)
   root to: 'devise/sessions#new'
 
