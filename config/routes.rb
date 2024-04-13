@@ -1,8 +1,23 @@
 Rails.application.routes.draw do
-  get 'transactions/index'
-  get 'transactions/new'
-  get 'transactions/create'
   devise_for :users
+
+  devise_scope :user do
+    authenticated :user do
+      root to: 'traders/dashboard#index', as: :authenticated_trader_root
+    end
+  end
+
+  namespace :admins do
+    get 'dashboard', to: 'dashboard#index'
+  end
+
+  namespace :traders do
+    get 'dashboard', to: 'dashboard#index'
+  end
+
+  # Define root route for unauthenticated users (sign-in page)
+  root to: 'devise/sessions#new'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
