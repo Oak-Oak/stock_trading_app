@@ -1,0 +1,7 @@
+<h1>Welcome to the Admin Dashboard</h1>
+<p>This is the landing page for the admin dashboard.</p>
+<p>Here you can manage traders, view transactions, and perform other administrative tasks.</p>
+
+<%= form_tag(destroy_user_session_path, method: :delete) do %>
+  <%= submit_tag "Sign out" %>
+<% end %>
