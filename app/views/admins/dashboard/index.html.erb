@@ -5,9 +5,31 @@
 <h1>All Traders</h1>
 <ul>
   <% @traders.each do |trader| %>
-    <li><%= trader.email %></li>
+    <li><%= trader.email %> | approved: <%= trader.approved %></li>
+
   <% end %>
 </ul>
+
+<h2>Pending Trader Sign-ups</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pending_traders.each do |trader| %>
+      <tr>
+        <td><%= trader.email %></td>
+        <td>
+            <%= button_to 'Approve', admins_approve_trader_path(trader), method: :patch %>
+            <%= link_to 'Reject', admins_reject_trader_path(trader), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= form_tag(destroy_user_session_path, method: :delete) do %>
   <%= submit_tag "Sign out" %>
