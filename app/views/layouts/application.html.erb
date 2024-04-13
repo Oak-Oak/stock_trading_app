@@ -11,6 +11,12 @@
   </head>
 
   <body>
+  <% flash.each do |key, value| %>
+    <div class="alert <%= key == :notice ? 'alert-success' : 'alert-danger' %> alert-dismissible fade show" role="alert">
+      <%= value %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
     <%= yield %>
   </body>
 </html>
