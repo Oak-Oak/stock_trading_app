@@ -1,0 +1,7 @@
+<h1>Welcome to the Trader Dashboard</h1>
+<p>This is the landing page for the trader dashboard.</p>
+<p>Here you can view your portfolio, transactions, and perform stock-related actions.</p>
+
+<%= form_tag(destroy_user_session_path, method: :delete) do %>
+  <%= submit_tag "Sign out" %>
+<% end %>
