@@ -2,11 +2,13 @@
 <p>This is the landing page for the admin dashboard.</p>
 <p>Here you can manage traders, view transactions, and perform other administrative tasks.</p>
 
-<h1>All Traders</h1>
+<h2>All Traders</h2>
 <ul>
   <% @traders.each do |trader| %>
     <li><%= trader.email %> | approved: <%= trader.approved %></li>
-
+    <%= link_to 'View', admins_trader_path(trader) %>
+    <%= link_to 'Edit', edit_admins_trader_path(trader) %>
+    <%= link_to 'Delete', admins_trader_path(trader), method: :delete, data: { confirm: 'Are you sure?' } %>
   <% end %>
 </ul>
 
@@ -32,18 +34,21 @@
 </table>
 <br />
 <br />
+<h2>Create New Trader</h2>
+<%= form_for(User.new, url: admins_traders_path) do |f| %>
+  <div>
+    <%= f.label :email, "Email:" %>
+    <%= f.email_field :email, required: true %>
+  </div>
 
-<p>Create New Trader</p>
-<form action="/admins/create_trader" method="post">
-  
-  <label for="trader_email">Email:</label>
-  <input type="email" id="trader_email" name="user[email]" required><br>
-
-  <label for="trader_password">Password:</label>
-  <input type="password" id="trader_password" name="user[password]" required><br>
+  <div>
+    <%= f.label :password, "Password:" %>
+    <%= f.password_field :password, required: true %>
+  </div>
  
-  <input type="submit" value="Create Trader">
-</form>
+  <%= f.submit "Create Trader" %>
+<% end %>
+
 
 <br />
 <br />
