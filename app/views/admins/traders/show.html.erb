@@ -1,0 +1,5 @@
+<h1>Trader Details</h1>
+<p>Email: <%= @trader.email %></p>
+<p>Approved: <%= @trader.approved %></p>
+<%= link_to 'Edit', edit_admins_trader_path(@trader) %>
+<%= link_to 'Back to Dashboard', admins_dashboard_path %>
