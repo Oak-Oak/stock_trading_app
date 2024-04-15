@@ -1,0 +1,13 @@
+<h1>Edit Trader</h1>
+<%= form_for @trader, url: admins_trader_path(@trader), method: :patch do |f| %>
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div>
+    <%= f.label :approved %>
+    <%= f.check_box :approved %>
+  </div>
+  <%= f.submit 'Update Trader' %>
+<% end %>
+<%= link_to 'Cancel', admins_trader_path(@trader) %>
