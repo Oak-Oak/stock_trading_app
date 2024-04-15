@@ -30,7 +30,23 @@
     <% end %>
   </tbody>
 </table>
+<br />
+<br />
 
+<p>Create New Trader</p>
+<form action="/admins/create_trader" method="post">
+  
+  <label for="trader_email">Email:</label>
+  <input type="email" id="trader_email" name="user[email]" required><br>
+
+  <label for="trader_password">Password:</label>
+  <input type="password" id="trader_password" name="user[password]" required><br>
+ 
+  <input type="submit" value="Create Trader">
+</form>
+
+<br />
+<br />
 <%= form_tag(destroy_user_session_path, method: :delete) do %>
   <%= submit_tag "Sign out" %>
 <% end %>
