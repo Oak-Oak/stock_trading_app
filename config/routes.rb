@@ -8,10 +8,12 @@ Rails.application.routes.draw do
   end
 
   namespace :admins do
+    resources :traders, only: [:create]
     get 'dashboard', to: 'dashboard#index'
     patch 'approve_trader/:id', to: 'dashboard#approve_trader', as: 'approve_trader'
     delete 'reject_trader/:id', to: 'dashboard#reject_trader', as: 'reject_trader'
-  end
+    post 'create_trader', to: 'dashboard#create_trader', as: 'create_trader'
+  end  
 
   namespace :traders do
     get 'dashboard', to: 'dashboard#index'
