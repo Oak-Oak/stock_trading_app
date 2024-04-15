@@ -1,7 +1,7 @@
 class Admins::DashboardController < ApplicationController
     def index
-        @traders = User.where(isAdmin: false)
-        @pending_traders = User.where(isAdmin: false, approved: false)
+        @traders = User.where(isAdmin: false, approved: true).order(created_at: :asc)
+        @pending_traders = User.where(isAdmin: false, approved: false).order(created_at: :asc)
       end
 
       def approve_trader
