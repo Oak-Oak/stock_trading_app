@@ -8,7 +8,7 @@
     <li><%= trader.email %> | approved: <%= trader.approved %></li>
     <%= link_to 'View', admins_trader_path(trader) %>
     <%= link_to 'Edit', edit_admins_trader_path(trader) %>
-    <%= link_to 'Delete', admins_trader_path(trader), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to "Delete", admins_trader_path(trader), data: { turbo_method: :delete, turbo_confirm: "Confirm Deletion?" } %>
   <% end %>
 </ul>
 
@@ -26,7 +26,7 @@
         <td><%= trader.email %></td>
         <td>
             <%= button_to 'Approve', admins_approve_trader_path(trader), method: :patch %>
-            <%= link_to 'Reject', admins_trader_path(trader), method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to "Reject", admins_reject_trader_path(trader), data: { turbo_method: :delete, turbo_confirm: "Confirm Rejection?" } %>
         </td>
       </tr>
     <% end %>

@@ -1,5 +1,5 @@
 class Admins::TradersController < ApplicationController
-    before_action :set_trader, only: [:show, :edit, :update]
+  before_action :set_trader, only: [:show, :edit, :update, :destroy]
 
     def show
     end
@@ -24,6 +24,11 @@ class Admins::TradersController < ApplicationController
           redirect_to admins_dashboard_path
         end
       end
+
+    def destroy
+      @trader.destroy
+      redirect_to admins_dashboard_path, notice: "Trader deleted successfully."
+    end
   
     private
   
