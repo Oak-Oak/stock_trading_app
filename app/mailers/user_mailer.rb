@@ -6,7 +6,7 @@ class UserMailer < ApplicationMailer
       
     def account_pending_admin(user)
         @user = user
-        mail(to: 'admin@example.com', subject: "New Account Pending Approval")
+        mail(to: 'admin@email.com', subject: "New Account Pending Approval")
     end
 
     def account_approved(user)
