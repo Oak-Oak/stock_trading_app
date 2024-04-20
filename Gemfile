@@ -30,6 +30,10 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.1.0'
 end
 
+group :development, :test do
+  gem 'factory_bot_rails'
+end
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
