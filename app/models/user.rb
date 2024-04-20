@@ -5,9 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
         attribute :approved, :boolean, default: false
-        attribute :role, :boolean, default: false
+        attribute :isAdmin, :boolean, default: false
 
-  def admin?
-    isAdmin
-  end
 end
