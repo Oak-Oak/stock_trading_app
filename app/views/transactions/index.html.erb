@@ -39,14 +39,25 @@ ACCT VALUE
 
 <%= form_with(url: trader_transactions_path, method: :post) do |form| %>
   <%= form.label :symbol, "Stock Symbol" %>
-  <%= form.text_field :symbol%>
+  <%= form.text_field :symbol %>
   
   <%= form.label :quantity, "Quantity" %>
   <%= form.number_field :quantity %>
   
   <%= form.submit "Buy" %>
-
 <% end %>
+
+<%= form_with(url: sell_trader_transactions_path, method: :post) do |form| %>
+  <%= form.hidden_field :action, value: "sell" %>
+  <%= form.label :symbol, "Stock Symbol" %>
+  <%= form.text_field :symbol %>
+  
+  <%= form.label :quantity, "Quantity" %>
+  <%= form.number_field :quantity %>
+  
+  <%= form.submit "Sell" %>
+<% end %>
+
 
 <% console %>
 

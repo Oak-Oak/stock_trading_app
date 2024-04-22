@@ -20,7 +20,9 @@ Rails.application.routes.draw do
   end
 
   resources :traders do
-    resources :transactions
+    resources :transactions do
+      post 'sell', on: :collection
+    end
   end
   # Define root route for unauthenticated users (sign-in page)
   root to: 'devise/sessions#new'

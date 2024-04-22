@@ -27,6 +27,26 @@ class TransactionsController < ApplicationController
     render :index
   end
   
+  def sell
+    @symbol = params[:symbol]
+    @quantity = params[:quantity].to_i
+    fetch_stock_quote
+  
+    return if @stock_quote.nil?
+  
+    transaction_cost = @stock_quote.latest_price.to_i * @quantity
+    ensure_sufficient_stocks(@symbol, @quantity)
+  
+    update_user_account_value(-transaction_cost)
+    create_transaction("sell")
+
+  rescue IEX::Errors::SymbolNotFoundError
+    flash.now[:notice] = "Stock not found."
+    render :index
+  rescue => e
+    flash[:error] = "Transaction failed: #{e.message}"
+    render :index
+  end
 
 
   private
@@ -69,4 +89,10 @@ class TransactionsController < ApplicationController
     puts @transaction
     redirect_to trader_transactions_path
   end
+
+  def ensure_sufficient_stocks(symbol, quantity)
+    total_quantity = current_user.transactions.where(symbol: symbol).sum(:quantity)
+    raise "Insufficient quantity of stocks." if total_quantity < quantity
+  end
+
 end
