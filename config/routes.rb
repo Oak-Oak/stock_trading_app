@@ -19,7 +19,9 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboard#index'
   end
 
-  resources :traders 
+  resources :traders do
+    resources :transactions
+  end
   # Define root route for unauthenticated users (sign-in page)
   root to: 'devise/sessions#new'
 

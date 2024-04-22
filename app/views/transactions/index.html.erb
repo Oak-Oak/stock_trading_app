@@ -1,6 +1,55 @@
 <h1>Transactions</h1>
 <ul>
+  
+ACCT VALUE
+  <%= current_user.account_value %>
+  <% if @transactions.present? %>
+    
+  
   <% @transactions.each do |transaction| %>
     <li><%= transaction.action %> - <%= transaction.symbol %> - <%= transaction.quantity %> - <%= transaction.price %></li>
   <% end %>
+  <% end %>
+
 </ul>
+
+
+<%= form_with(url: trader_transactions_path, method: "get") do %>
+  <%= text_field_tag(:symbol, @symbol, placeholder: "Enter stock symbol") %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<% if @stock_quote.present? %>
+
+  <h2>Stock Price for <%= @stock_quote.company_name %></h2>
+  <p> Latest price: <%= @stock_quote.latest_price %></p>
+  <p> Volume: <%= @stock_quote.iex_volume %></p>
+  <p> 52-week high: <%= @stock_quote.week_52_high %></p>
+  <p> 52-week low: <%= @stock_quote.week_52_low %></p>
+  <p> PE Ratio: <%= @stock_quote.pe_ratio %></p>
+  <p> Change: <%= @stock_quote.change %></p>
+
+<% else %>
+
+ 
+
+<% end %>
+
+
+
+<%= form_with(url: trader_transactions_path, method: :post) do |form| %>
+  <%= form.label :symbol, "Stock Symbol" %>
+  <%= form.text_field :symbol%>
+  
+  <%= form.label :quantity, "Quantity" %>
+  <%= form.number_field :quantity %>
+  
+  <%= form.submit "Buy" %>
+
+<% end %>
+
+<% console %>
+
+
+
+<%= link_to 'Home', traders_dashboard_path %>

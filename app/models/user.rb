@@ -8,4 +8,5 @@ class User < ApplicationRecord
         attribute :approved, :boolean, default: false
         attribute :isAdmin, :boolean, default: false
 
+  has_many :transactions
 end

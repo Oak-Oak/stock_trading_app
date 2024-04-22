@@ -5,6 +5,26 @@
 <% else %>
     <%= render 'pending_approval' %>
 <% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stock</th>
+      <th>Total Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @total_quantity_per_stock.each do |symbol, total_quantity| %>
+      <tr>
+        <td><%= symbol %></td>
+        <td><%= total_quantity %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+ 
+
 <%= form_tag(destroy_user_session_path, method: :delete) do %>
   <%= submit_tag "Sign out" %>
 <% end %>
+<%= link_to 'Trade', trader_transactions_path(trader_id: current_user.id) %>
