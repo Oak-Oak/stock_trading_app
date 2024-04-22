@@ -14,9 +14,9 @@ ACCT VALUE
 </ul>
 
 
-<%= form_with(url: trader_transactions_path, method: "get") do %>
-  <%= text_field_tag(:symbol, @symbol, placeholder: "Enter stock symbol") %>
-  <%= submit_tag("Search") %>
+<%= form_with(url: trader_transactions_path, method: "get") do |form| %>
+  <%= form.text_field(:symbol, placeholder: "Enter stock symbol") %>
+  <%= form.submit("Search") %>
 <% end %>
 
 <% if @stock_quote.present? %>
