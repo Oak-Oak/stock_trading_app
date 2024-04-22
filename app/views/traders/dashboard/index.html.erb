@@ -1,4 +1,4 @@
-<% if current_user && current_user.approved %>
+<% if current_user && current_user.approved && current_user.confirmed? %>
     <h1>Welcome to the Trader Dashboard</h1>
     <p>This is the landing page for the trader dashboard.</p>
     <p>Here you can view your portfolio, transactions, and perform stock-related actions.</p>
