@@ -3,10 +3,10 @@
 <p>Email: <%= @trader.email %></p>
 <p>Approved: <%= @trader.approved %></p>
 
-<%= @trader.account_value %>
+<h2>Account Balance:  <%= @trader.account_value %></h2>
   <% if @transactions.present? %>
     
-  
+  <h3>Transaction History:</h3>
   <% @transactions.each do |transaction| %>
     <li><%= transaction.action %> - <%= transaction.symbol %> - <%= transaction.quantity %> - <%= transaction.price %></li>
   <% end %>
