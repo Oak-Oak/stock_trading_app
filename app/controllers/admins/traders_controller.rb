@@ -2,6 +2,9 @@ class Admins::TradersController < ApplicationController
   before_action :set_trader, only: [:show, :edit, :update, :destroy]
 
     def show
+      @trader = User.find(params[:id])
+      @transactions = @trader.transactions
+      @total_quantity_per_stock = calculate_total_quantity_per_stock(@transactions)
     end
   
     def edit
@@ -34,6 +37,14 @@ class Admins::TradersController < ApplicationController
   
     def set_trader
       @trader = User.find(params[:id])
+    end
+
+    def calculate_total_quantity_per_stock(transactions)
+      total_quantity_per_stock = Hash.new(0)
+      transactions.each do |transaction|
+        total_quantity_per_stock[transaction.symbol] += transaction.quantity
+      end
+      total_quantity_per_stock
     end
 
     def user_params
