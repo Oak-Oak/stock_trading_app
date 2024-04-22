@@ -1,5 +1,33 @@
 <h1>Trader Details</h1>
+
 <p>Email: <%= @trader.email %></p>
 <p>Approved: <%= @trader.approved %></p>
+
+<%= @trader.account_value %>
+  <% if @transactions.present? %>
+    
+  
+  <% @transactions.each do |transaction| %>
+    <li><%= transaction.action %> - <%= transaction.symbol %> - <%= transaction.quantity %> - <%= transaction.price %></li>
+  <% end %>
+  <% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stock</th>
+      <th>Total Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @total_quantity_per_stock.each do |symbol, total_quantity| %>
+      <tr>
+        <td><%= symbol %></td>
+        <td><%= total_quantity %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <%= link_to 'Edit', edit_admins_trader_path(@trader) %>
 <%= link_to 'Back to Dashboard', admins_dashboard_path %>
