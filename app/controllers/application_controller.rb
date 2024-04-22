@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if resource.isAdmin && resource.confirmed?
       return admins_dashboard_path
-    elsif resource.confirmed?
+    elsif !resource.isAdmin && resource.confirmed?
       if !resource.approved
         UserMailer.account_pending_admin(resource).deliver_now
       end
