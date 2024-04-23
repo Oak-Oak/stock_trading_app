@@ -48,6 +48,29 @@
   <%= f.submit "Create Trader" %>
 <% end %>
 
+<h2>All Transactions</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>User</th>
+      <th>Symbol</th>
+      <th>Quantity</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.action %></td>
+        <td><%= transaction.user.email %></td>
+        <td><%= transaction.symbol %></td>
+        <td><%= transaction.quantity %></td>
+        <td><%= transaction.updated_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <br />
 <br />
 <%= form_tag(destroy_user_session_path, method: :delete) do %>
