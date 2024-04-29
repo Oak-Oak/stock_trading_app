@@ -22,7 +22,7 @@ Rails.application.configure do
   address: 'live.smtp.mailtrap.io',
   port: 587, 
   user_name: 'api',
-  password: 'your_mailtrap_password',
+  password: '5928b3f54c75612b52c1f4363373d86c',
   authentication: :plain, 
   enable_starttls_auto: true 
 }
