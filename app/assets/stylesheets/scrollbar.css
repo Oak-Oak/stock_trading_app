@@ -1,0 +1,20 @@
+/* Thin scrollbar */
+::-webkit-scrollbar {
+  width: 6px; /* Adjust width as needed */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent; /* or any other color you prefer */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Change this to the color you prefer */
+  border-radius: 2px;
+}
+
+/* Remove scrollbar arrows */
+::-webkit-scrollbar-button {
+  display: none;
+}
