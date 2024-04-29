@@ -7,12 +7,15 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-unless User.exists?
+if User.exists?
+    user = User.find_by(email: "admin@gmail.com")
+    user.confirm if user && !user.confirmed?
+  else
     user = User.create!(
       email: "admin@gmail.com", 
       password: "Railstester01", 
       approved: true, 
       isAdmin: true
     )
-    user.confirm
-  end
+    user.skip_confirmation!
+  end  
