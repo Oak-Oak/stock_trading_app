@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admins::TradersController, type: :controller do
-    describe 'GET #index' do
+  describe 'GET #index' do
     context 'when admin is authenticated' do
       before do
         @admin = create(:admin_user)
@@ -33,23 +33,20 @@ RSpec.describe Admins::TradersController, type: :controller do
       it 'creates new trader' do
         trader_params = attributes_for(:user)
         expect {
-                post :create, params: { user: trader_params }
-                }.to change(User, :count).by(1)
+          post :create, params: { user: trader_params }
+        }.to change(User, :count).by(1)
         expect(response).to have_http_status(302) #response302 indicates a redirect 
-                                                #in admin dashboard after creation 
-                                                #we redirect to admin dashboard
+                                                  #in admin dashboard after creation 
+                                                  #we redirect to admin dashboard
       end
 
       it 'deletes trader' do
         trader = create(:user, id: 27, approved: true)
         expect {
-                delete :destroy, params: { id: trader.id }
-                }.to change(User, :count).by(-1)
+          delete :destroy, params: { id: trader.id }
+        }.to change(User, :count).by(-1)
         expect(response).to have_http_status(302)
       end
-
     end
   end
-
-
 end
