@@ -8,13 +8,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 unless User.exists?
-    User.create!(
-        email: "admin@gmail.com", 
-        password: "Railstester01", 
-        approved: true, 
-        isAdmin: true
+    user = User.create!(
+      email: "admin@gmail.com", 
+      password: "Railstester01", 
+      approved: true, 
+      isAdmin: true
     )
-    user.confirmed_at = Time.now
-
-    user.save!
-end
+    user.confirm
+  end
