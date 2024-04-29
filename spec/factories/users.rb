@@ -4,6 +4,7 @@ FactoryBot.define do
       password { "password" }
       isAdmin { false }
       approved { false }
+      account_value { 100000 }
     end
   
     factory :admin_user, class: User do

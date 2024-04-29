@@ -35,7 +35,7 @@ RSpec.describe Admins::TradersController, type: :controller do
         expect {
                 post :create, params: { user: trader_params }
                 }.to change(User, :count).by(1)
-        expect(response).to have_http_status(302) #response302 is indicates a redirect 
+        expect(response).to have_http_status(302) #response302 indicates a redirect 
                                                 #in admin dashboard after creation 
                                                 #we redirect to admin dashboard
       end
