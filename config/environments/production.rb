@@ -19,7 +19,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :mailtrap
 config.action_mailer.mailtrap_settings = {
-  api_key: ENV.fetch('5928b3f54c75612b52c1f4363373d86c')
+  api_key: ENV.fetch('MAILTRAP_API_KEY')
 }
 
 
