@@ -17,14 +17,9 @@ Rails.application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-  address: 'live.smtp.mailtrap.io',
-  port: 587, 
-  user_name: 'api',
-  password: '5928b3f54c75612b52c1f4363373d86c',
-  authentication: :plain, 
-  enable_starttls_auto: true 
+  config.action_mailer.delivery_method = :mailtrap
+config.action_mailer.mailtrap_settings = {
+  api_key: ENV.fetch('5928b3f54c75612b52c1f4363373d86c')
 }
 
 
