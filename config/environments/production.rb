@@ -19,13 +19,12 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-  address: 'smtp.gmail.com',
-  port: 587,
-  domain: 'stock-trading-app-development.onrender.com',
-  user_name: 'bankocentral123@gmail.com',
-  password: 'password',
-  authentication: 'plain',
-  enable_starttls_auto: true
+  :user_name => '475a384371d134',
+  :password => '421bca766aa2d6',
+  :address => 'sandbox.smtp.mailtrap.io',
+  :host => 'sandbox.smtp.mailtrap.io',
+  :port => '2525',
+  :authentication => :login
 }
 
 
