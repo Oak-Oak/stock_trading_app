@@ -9,8 +9,8 @@
 #   end
 unless User.exists?
     User.create!(
-        email: "misterrailstesterman@gmail.com", 
-        password: "Railstester01", 
+        email: "bankocentral123@gmail.com", 
+        password: "password", 
         approved: true, 
         isAdmin: true
     )
