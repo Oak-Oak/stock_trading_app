@@ -17,10 +17,11 @@ Rails.application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
-  config.action_mailer.delivery_method = live.smtp.mailtrap.io
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
   address: 'smtp.gmail.com',
   port: 587,
+  domain: 'stock-trading-app-development.onrender.com/'
   user_name: 'bankocentral123@gmail.com',
   password: 'password',
   authentication: 'plain',
