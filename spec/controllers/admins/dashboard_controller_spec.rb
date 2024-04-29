@@ -42,9 +42,6 @@ RSpec.describe Admins::DashboardController, type: :controller do
                }.to change(User, :count).by(-1)
         expect { trader.reload }.to raise_error(ActiveRecord::RecordNotFound)
       end
-      
-
     end
   end
-
 end
