@@ -1,63 +1,67 @@
 <% if current_user && current_user.approved && current_user.confirmed? %>
   <div class="bg-slate-950 text-white min-h-screen flex flex-col">
 
-    <div class="flex gap-4 p-8 text-lg justify-end">
-      <h2><%= link_to 'Trade', trader_transactions_path(trader_id: current_user.id) %></h2>
+    <div class="flex justify-between items-center p-8">
+      <h1 class="text-2xl font-bold">Welcome, <%= current_user.email.split("@").first.capitalize %></h1>
 
-      <%= form_tag(destroy_user_session_path, method: :delete) do %>
-        <%= submit_tag "Sign out" %>
-      <% end %>
+      <div class="flex gap-4 items-center">
+        <%= link_to 'Trade', trader_transactions_path(trader_id: current_user.id), class: "border border-white px-4 py-2 rounded-md hover:bg-gray-800" %>
+
+        <%= form_tag(destroy_user_session_path, method: :delete) do %>
+          <%= submit_tag "Sign out", class: "cursor-pointer border px-4 py-2 rounded-md border-gray-500 bg-gray-500 hover:bg-gray-700" %>
+        <% end %>
+      </div>
     </div>
 
-    <div class="flex">
 
-      <section class="flex flex-col flex-1">
-        <% if current_user && current_user.approved && current_user.confirmed? %>
-          <h1>Welcome, <%= current_user.email.split("@").first.capitalize%></h1>
+    <div class="flex justify-center align-center ">
 
-          <table class="border border-white w-full text-center">
-            <thead>
-              <tr>
-                <th>Owned Stocks</th>
-                <th>Total Quantity</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @total_quantity_per_stock.each do |symbol, total_quantity| %>
+      <section class=" border border-white flex flex-col p-4 ">
+          
+
+            <table class="text-center w-48">
+              <thead>
                 <tr>
-                  <td><%= symbol.upcase %></td>
-                  <td><%= total_quantity %></td>
+                  <th class="px-4 py-2 text-lg">Owned Stocks</th>
+                  <th class="px-4 py-2 text-lg">Total Quantity</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% else %>
-          <%= render 'pending_approval' %>
-        <% end %>
+              </thead>
+              <tbody>
+                <% @total_quantity_per_stock.each do |symbol, total_quantity| %>
+                  <tr>
+                    <td class="px-4 py-2 text-lg"><%= symbol.upcase %></td>
+                    <td class="px-4 py-2 text-lg"><%= total_quantity %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
       </section>
 
-      <section class="flex flex-1 flex-col items-center justify-center">
-        <%= form_with(url: traders_dashboard_path(:trader_id), method: "get", class: "mt-4") do |form| %>
-          <%= form.text_field(:symbol, placeholder: "Enter stock symbol", class: "p-2 border border-gray-400 rounded-md") %>
-          <%= form.submit("Search", class: "mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700") %>
-        <% end %>
+      <section class="flex flex-col items-center justify-center p-4 border border-white">
+        <div class="flex flex-col items-center justify-center max-w-3/4">
+          <%= form_with(url: traders_dashboard_path(:trader_id), method: "get", class: "mt-4") do |form| %>
+            <%= form.text_field(:symbol, placeholder: "Enter stock symbol", class: "p-2 border border-gray-400 rounded-md") %>
+            <%= form.submit("Search", class: "mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700") %>
+          <% end %>
 
-        <% if @stock_quote.present? %>
-          <div class="mt-4">
-            <h2>Stock Price for <%= @stock_quote.company_name %></h2>
-            <p>Latest price: <%= @stock_quote.latest_price %></p>
-            <p>Volume: <%= @stock_quote.iex_volume %></p>
-            <p>52-week high: <%= @stock_quote.week_52_high %></p>
-            <p>52-week low: <%= @stock_quote.week_52_low %></p>
-            <p>PE Ratio: <%= @stock_quote.pe_ratio %></p>
-            <p>Change: <%= @stock_quote.change %></p>
-          </div>
-        <% end %>
+          <% if @stock_quote.present? %>
+            <div class="mt-4">
+              <h2>Stock Price for <%= @stock_quote.company_name %></h2>
+              <p>Latest price: <%= @stock_quote.latest_price %></p>
+              <p>Volume: <%= @stock_quote.iex_volume %></p>
+              <p>52-week high: <%= @stock_quote.week_52_high %></p>
+              <p>52-week low: <%= @stock_quote.week_52_low %></p>
+              <p>PE Ratio: <%= @stock_quote.pe_ratio %></p>
+              <p>Change: <%= @stock_quote.change %></p>
+            </div>
+          <% end %>
+        </div>
       </section>
 
     </div>
   </div>
   
 <% else %>
-    <%= render 'pending_approval' %>
+  <%= render 'pending_approval' %>
 <% end %>
