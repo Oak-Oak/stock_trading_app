@@ -17,7 +17,7 @@ Rails.application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
-  config.action_mailer.default_url_options = { host: 'stock-trading-app-development.onrender.com' }
+  config.action_mailer.default_url_options = { host: 'https://stock-trading-app-lnq0.onrender.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
   :user_name => '475a384371d134',
