@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Stonks</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+<head>
+  <title>Stonks</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+<body class="min-h-screen relative">
 
-  <body class="min-h-screen">
   <% flash.each do |key, value| %>
-    <div class="alert <%= key == :notice ? 'alert-success' : 'alert-danger' %> alert-dismissible fade show" role="alert">
+    <div class="fixed top-0 left-1/2 transform -translate-x-1/2 w-fit bg-green-500 text-white px-4 py-2 rounded-md shadow-lg text-center">
       <%= value %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <% end %>
-    <%= yield %>
-  </body>
+
+  <%= yield %>
+</body>
 </html>
