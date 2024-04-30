@@ -1,18 +1,37 @@
-<h1>Welcome to the Admin Dashboard</h1>
-<p>This is the landing page for the admin dashboard.</p>
-<p>Here you can manage traders, view transactions, and perform other administrative tasks.</p>
+<div class="bg-[url('/bg.jpg')] text-white min-h-screen p-4">
 
-<h2>All Traders</h2>
-<ul>
-  <% @traders.each do |trader| %>
-    <li><%= trader.email %> | approved: <%= trader.approved %></li>
-    <%= link_to 'View', admins_trader_path(trader) %>
-    <%= link_to 'Edit', edit_admins_trader_path(trader) %>
-    <%= link_to "Delete", admins_trader_path(trader), data: { turbo_method: :delete, turbo_confirm: "Confirm Deletion?" } %>
-  <% end %>
-</ul>
 
-<h2>Pending Trader Sign-ups</h2>
+<nav class="pl-4 pr-6 pt-6 pb-4 flex justify-between">
+<h1 class="font-bold text-4xl">Hello, <%= current_user.email.split("@").first.capitalize %>. </h1>
+<%= form_tag(destroy_user_session_path, method: :delete) do %>
+  <%= submit_tag "Sign out", class:"cursor-pointer border p-2 rounded-md border-gray-500 bg-gray-500" %>
+<% end %>
+</nav>
+
+<div class="flex gap-4"> 
+
+<section class="gap-5 flex flex-col flex-1 pl-4 pt-4">
+
+<div class="flex border border-white border-2 p-8 justify-between overflow-auto max-h-[300px] rounded-xl">
+<div class="flex flex-col gap-4">
+<h2 class="font-bold text-2xl">Create New Trader</h2>
+<%= form_for(User.new, url: admins_traders_path) do |f| %>
+  <div>
+    <%= f.label :email, "Email:" %> <br>
+    <%= f.email_field :email, required: true, class:"text-black rounded-md" %>
+  </div>
+
+  <div>
+    <%= f.label :password, "Password:" %> <br>
+    <%= f.password_field :password, required: true, class:"text-black rounded-md" %>
+  </div>
+ 
+<%= f.submit "Create Trader", class:"cursor-pointer border border-green-600 rounded-lg bg-green-600 p-3 mt-3" %> 
+<% end %>
+</div>
+
+<div class="flex flex-col overflow-auto gap-4 text-left">
+<h2 class="font-bold text-2xl">Pending Trader Sign-ups</h2>
 <table>
   <thead>
     <tr>
@@ -32,47 +51,64 @@
     <% end %>
   </tbody>
 </table>
+</div>
+</div>
 
-<h2>Create New Trader</h2>
-<%= form_for(User.new, url: admins_traders_path) do |f| %>
-  <div>
-    <%= f.label :email, "Email:" %>
-    <%= f.email_field :email, required: true %>
+<div class="flex flex-col gap-4 border border-white border-2 p-4 rounded-xl overflow-auto max-h-[300px]">
+<h2 class="font-bold text-2xl">List of Traders</h2>
+<ul class="gap-4 flex flex-col ">
+  <% @traders.each do |trader| %>
+    <li><%= trader.email %> </li>
+    <div class="flex gap-4">
+    <%= link_to 'View', admins_trader_path(trader), class:"text-green-400" %>
+    <%= link_to 'Edit', edit_admins_trader_path(trader), class:"text-yellow-400" %>
+    <%= link_to "Delete", admins_trader_path(trader), data: { turbo_method: :delete, turbo_confirm: "Confirm Deletion?" }, class:"text-red-400" %> 
+    </div>
+  <% end %>
+</ul>
+</div>
+</section>
+
+
+
+<section class="border border-white border-2 overflow-auto flex flex-1 flex-col p-4 rounded-xl max-h-[650px]">
+  <h2 class="text-2xl font-bold pb-4">All Transactions</h2>
+  <div class="max-h-screen overflow-auto">
+    <table class="w-full ">
+      <thead class="sticky top-0 bg-slate-900">
+        <tr>
+          <th>Action</th>
+          <th>User</th>
+          <th>Symbol</th>
+          <th>Quantity</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody class="text-center overflow-auto ">
+        <% @transactions.each do |transaction| %>
+          <tr>
+            <td class="<%= transaction.action == 'buy' ? 'text-green-500' : 'text-red-500' %>">
+              <%= transaction.action.capitalize %>
+            </td>
+            <td><%= transaction.user.email %></td>
+            <td><%= transaction.symbol.upcase %></td>
+            <td><%= transaction.quantity %></td>
+            <td><%= transaction.updated_at %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
+</section>
 
-  <div>
-    <%= f.label :password, "Password:" %>
-    <%= f.password_field :password, required: true %>
-  </div>
- 
-  <%= f.submit "Create Trader" %>
-<% end %>
 
-<h2>All Transactions</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Action</th>
-      <th>User</th>
-      <th>Symbol</th>
-      <th>Quantity</th>
-      <th>Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @transactions.each do |transaction| %>
-      <tr>
-        <td><%= transaction.action %></td>
-        <td><%= transaction.user.email %></td>
-        <td><%= transaction.symbol %></td>
-        <td><%= transaction.quantity %></td>
-        <td><%= transaction.updated_at %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+
+
+
+
 <br />
 <br />
-<%= form_tag(destroy_user_session_path, method: :delete) do %>
-  <%= submit_tag "Sign out" %>
-<% end %>
+
+</div>
+</div>
