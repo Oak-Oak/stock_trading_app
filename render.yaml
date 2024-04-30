@@ -6,7 +6,7 @@ databases:
 
 services:
   - type: web
-    name: stock_trading_app_development
+    name: stock_trading_app
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
