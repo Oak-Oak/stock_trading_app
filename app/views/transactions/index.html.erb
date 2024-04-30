@@ -4,7 +4,7 @@
     <h1 class="text-3xl font-bold">Transactions</h1>
 
     <div class="flex items-center gap-4">
-      <%= link_to 'Home', traders_dashboard_path, class: "text-blue-500 underline" %>
+      <%= link_to 'Home', traders_dashboard_path, class: "text-white-500 underline" %>
       <%= link_to 'Trade', trader_transactions_path(trader_id: current_user.id), class: "text-white" %>
 
       <%= form_tag(destroy_user_session_path, method: :delete) do %>
@@ -13,11 +13,10 @@
     </div>
   </div>
 
+  <p class="text-lg mb-2 p-4">Account Value: <%= current_user.account_value %></p>
   <div class="flex justify-between mx-8 mt-8">
-    <div class="w-1/2 max-w-full overflow-x-auto">
+    <div class="w-1/2 overflow-x-auto  max-h-[650px] border border-white border-2">
       <div class="flex flex-col items-center">
-        <p class="text-lg mb-2">Account Value: <%= current_user.account_value %></p>
-
         <table class="bg-gray-900 w-full rounded-lg">
           <thead>
             <tr>
@@ -43,8 +42,8 @@
       </div>
     </div>
 
-    <div class="w-1/2">
-      <div class="flex flex-col items-center mb-8">
+    <div class="w-1/2 ">
+      <div class="flex flex-col items-center mb-8 ">
         <%= form_with(url: trader_transactions_path, method: :post, class: "flex flex-col items-center") do |form| %>
           <div class="mb-4">
             <%= form.label :symbol, "Stock Symbol", class: "block text-lg" %>
