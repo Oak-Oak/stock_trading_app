@@ -1,33 +1,91 @@
-<h1>Trader Details</h1>
+<div class="bg-[url('/bg.jpg')] text-white min-h-screen p-4">
 
-<p>Email: <%= @trader.email %></p>
-<p>Approved: <%= @trader.approved %></p>
-
-<h2>Account Balance:  <%= @trader.account_value %></h2>
-  <% if @transactions.present? %>
-    
-  <h3>Transaction History:</h3>
-  <% @transactions.each do |transaction| %>
-    <li><%= transaction.action %> - <%= transaction.symbol %> - <%= transaction.quantity %> - <%= transaction.price %></li>
-  <% end %>
-  <% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Stock</th>
-      <th>Total Quantity</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @total_quantity_per_stock.each do |symbol, total_quantity| %>
-      <tr>
-        <td><%= symbol %></td>
-        <td><%= total_quantity %></td>
-      </tr>
+  <nav class="pl-4 pr-6 pt-6 pb-4 flex justify-between">
+    <div>
+      <h1 class="font-bold text-4xl">Trader Details</h1><br />
+      <%= link_to 'Back to Dashboard', admins_dashboard_path, class: "text-xl font-bold text-white-500 hover:underline mt-2" %><br />
+      <%= link_to 'Edit', edit_admins_trader_path(@trader), class: "text-xl font-bold text-white-500 hover:underline" %>
+    </div>
+    <%= form_tag(destroy_user_session_path, method: :delete) do %>
+      <%= submit_tag "Sign out", class: "cursor-pointer border p-2 rounded-md border-gray-500 bg-gray-500" %>
     <% end %>
-  </tbody>
-</table>
+  </nav>
 
-<%= link_to 'Edit', edit_admins_trader_path(@trader) %>
-<%= link_to 'Back to Dashboard', admins_dashboard_path %>
+  <div class="flex gap-4">
+
+    <section class="gap-5 flex flex-col flex-1 pl-4 pt-4">
+      
+      <div class="flex border border-white border-2 p-8 justify-between overflow-auto max-h-[300px] rounded-xl">
+        <div class="flex flex-col gap-4">
+          <h2 class="font-bold text-2xl">Trader Details</h2>
+          <p>Email: <%= @trader.email %></p>
+          <p>Approved: <%= @trader.approved %></p>
+          <h2 class="font-bold text-2xl">Account Balance: <%= @trader.account_value %></h2>
+          
+          <% if @transactions.present? %>
+            <h3 class="font-bold text-xl">Transaction History:</h3>
+            <% @transactions.each do |transaction| %>
+              <p><%= transaction.action %> - <%= transaction.symbol %> - <%= transaction.quantity %> - <%= transaction.price %></p>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="flex flex-col overflow-auto gap-4 text-left">
+          <h2 class="font-bold text-2xl">Stock Summary</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Stock</th>
+                <th>Total Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @total_quantity_per_stock.each do |symbol, total_quantity| %>
+                <tr>
+                  <td><%= symbol %></td>
+                  <td><%= total_quantity %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="border border-white border-2 overflow-auto flex flex-1 flex-col p-4 rounded-xl max-h-[650px]">
+      <h2 class="text-2xl font-bold pb-4">All Transactions</h2>
+      <div class="max-h-screen overflow-auto">
+        <table class="w-full">
+          <thead class="sticky top-0 bg-slate-900">
+            <tr>
+              <th>Action</th>
+              <th>User</th>
+              <th>Symbol</th>
+              <th>Quantity</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody class="text-center overflow-auto">
+            <% @transactions.each do |transaction| %>
+              <tr>
+                <td class="<%= transaction.action == 'buy' ? 'text-green-500' : 'text-red-500' %>">
+                  <%= transaction.action.capitalize %>
+                </td>
+                <td><%= transaction.user.email %></td>
+                <td><%= transaction.symbol.upcase %></td>
+                <td><%= transaction.quantity %></td>
+                <td><%= transaction.updated_at %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  
+  </div>
+
+ 
+
+</div>

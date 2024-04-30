@@ -1,1 +1,9 @@
-<h2> Your account is pending approval. Please wait for admin approval. </h2>
+<div class="bg-slate-950 text-white flex justify-center content-center items-center min-h-screen">
+    <div class="border-2  border-white-800 p-8 rounded-lg text-center">
+        <h1 class=" text-4xl font-bold p-4">Your account is pending approval. Please wait for admin approval.</h1>
+
+        <%= form_tag(destroy_user_session_path, method: :delete) do %>
+            <%= submit_tag "Sign out", class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer mt-4" %>
+        <% end %>
+    </div>
+</div>
