@@ -4,11 +4,7 @@
     <h1 class="text-3xl font-bold">Trade</h1>
 
     <div class="flex items-center gap-4">
-<<<<<<< HEAD
       <%= link_to 'Home', traders_dashboard_path %>
-=======
-      <%= link_to 'Home', traders_dashboard_path %>
->>>>>>> 283b4ab316187b311254a86da376de0c87c806a1
       <%= link_to 'Trade', trader_transactions_path(trader_id: current_user.id), class: "text-white" %>
 
       <%= form_tag(destroy_user_session_path, method: :delete) do %>
