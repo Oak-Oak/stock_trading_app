@@ -1,10 +1,9 @@
 <% if current_user && current_user.approved && current_user.confirmed? %>
   <div class="bg-slate-950 text-white min-h-screen flex flex-col">
     <div class="bg-gray-900 flex items-center justify-between p-4">
-      <h1 class="text-3xl font-bold">Transactions</h1>
+        <h1 class="text-3xl font-bold">Welcome, <%= current_user.email.split("@").first.capitalize %> </h1>
 
       <div class="flex items-center gap-4">
-        <%= link_to 'Home', traders_dashboard_path, class: "text-white underline" %>
         <%= link_to 'Trade', trader_transactions_path(trader_id: current_user.id), class: "text-white" %>
 
         <%= form_tag(destroy_user_session_path, method: :delete) do %>
