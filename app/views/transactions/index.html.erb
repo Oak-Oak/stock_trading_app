@@ -1,4 +1,4 @@
-<div class="bg-slate-950 text-white min-h-screen">
+<div class="bg-slate-950 text-white w-full min-h-screen">
 
   <div class="bg-gray-900 col-span-3 flex items-center justify-between p-4">
     <h1 class="text-3xl font-bold">Trade</h1>
@@ -18,43 +18,25 @@
 
 
    <!-- Chart -->
-      <div class="flex items-center">
-        <% if @line_chart_data.present? %>
-          <div class="w-full">
-            <%= line_chart @line_chart_data, class: 'box',
-              options: {
-                title: {
-                  text: @stock_quote.company_name,
-                  left: 'center'
-                }
-              }
-            %>
-          </div>
-        <% else %>
-          <div class="w-full">
-            <%= bar_chart [[0]], class: 'box',
-              options: {
-                title: {
-                  text: "Stock Price",
-                  left: 'center'
-                },
-                xAxis: {
-                  type: 'category',
-                  data: ['']
-                },
-                yAxis: {
-                  type: 'value'
-                }
-              }
-            %>
-          </div>
-        <% end %>
-      </div>
+    <div class="flex justify-center items-center max-w-screen-xl">
+      <% if @line_chart_data.present? %>
+        <div class="w-full max-w-screen-xl mx-auto">
+          <%= line_chart @line_chart_data, class: 'box', options: { title: { text: @stock_quote.company_name, left: 'center' } } %>
+        </div>
+      <% else %>
+        <div class="w-full max-w-screen-xl mx-auto">
+          <%= bar_chart [[0]], class: 'box', options: { title: { text: "Stock Price", left: 'center' }, xAxis: { type: 'category', data: [''] }, yAxis: { type: 'value' } } %>
+        </div>
+      <% end %>
+    </div>
+
+
+
 
 
 
   <!-- forms -->
-  <div class="flex justify-center items-center ">
+  <div class="flex justify-center items-center w-full h-screen ">
 
    <!-- buy -->
     <div class="flex flex-col items-center justify-center p-4 border border-white">
@@ -72,7 +54,7 @@
     </div>
 
     <!-- search -->
-    <div class="flex flex-col items-center justify-center p-4 border border-white ">
+    <div class="flex flex-col items-center justify-center p-2 border border-white ">
       <div class="flex flex-col items-center justify-center max-w-3/4">
         <%= form_with(url: trader_transactions_path(trader_id: current_user.id), method: "get", class: "mt-4") do |form| %>
           <%= form.text_field(:symbol, placeholder: "Enter stock symbol", class: "p-2 border border-gray-400 rounded-md text-black") %>
