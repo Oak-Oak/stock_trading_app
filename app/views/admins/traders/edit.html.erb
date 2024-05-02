@@ -15,7 +15,7 @@
       <%= form_for @trader, url: admins_trader_path(@trader), method: :patch do |f| %>
         <div class="mb-4">
           <%= f.label :email, class: "block text-lg font-bold" %>
-          <%= f.text_field :email, class: "w-full p-2 rounded-md border border-white" %>
+          <%= f.text_field :email, class: "w-full p-2 rounded-md border border-white text-black" %>
         </div>
         <div class="mb-4">
           <%= f.label :approved, class: "block text-lg font-bold" %>
