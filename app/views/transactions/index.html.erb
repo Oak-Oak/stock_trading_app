@@ -40,7 +40,7 @@
   <div class="flex justify-center items-center w-full h-screen ">
 
    <!-- buy -->
-    <div class="flex flex-col items-center justify-center p-4 border border-white">
+    <div class="flex flex-col items-center justify-center p-4 ">
       <%= form_with(url: trader_transactions_path, method: :post, class: "flex flex-col items-center") do |form| %>
         <div class="mb-4">
           <%= form.label :symbol, "Stock Symbol", class: "block text-lg" %>
@@ -55,7 +55,7 @@
     </div>
 
     <!-- search -->
-    <div class="flex flex-col items-center justify-center p-2 border border-white ">
+    <div class="flex flex-col items-center justify-center p-2 ">
       <div class="flex flex-col items-center justify-center max-w-3/4">
         <%= form_with(url: trader_transactions_path(trader_id: current_user.id), method: "get", class: "mt-4") do |form| %>
           <%= form.text_field(:symbol, placeholder: "Enter stock symbol", class: "p-2 border border-gray-400 rounded-md text-black") %>
@@ -81,7 +81,7 @@
 
     <!-- sell -->
 
-    <div class="flex flex-col items-center justify-center p-4 border border-white">
+    <div class="flex flex-col items-center justify-center p-4 ">
       <%= form_with(url: sell_trader_transactions_path, method: :post, class: "flex flex-col items-center") do |form| %>
         <%= form.hidden_field :action, value: "sell" %>
         <div class="mb-4">
