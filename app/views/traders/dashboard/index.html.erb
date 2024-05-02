@@ -38,26 +38,32 @@
 
       </section>
 
-      <section class="flex flex-col items-center justify-center p-4 border border-white">
-        <div class="flex flex-col items-center justify-center max-w-3/4">
-          <%= form_with(url: traders_dashboard_path(:trader_id), method: "get", class: "mt-4") do |form| %>
-            <%= form.text_field(:symbol, placeholder: "Enter stock symbol", class: "p-2 border border-gray-400 rounded-md text-black") %>
-            <%= form.submit("Search", class: "mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700") %>
-          <% end %>
-
-          <% if @stock_quote.present? %>
-            <div class="mt-4">
-              <h2>Stock Price for <%= @stock_quote.company_name %></h2>
-              <p>Latest price: <%= @stock_quote.latest_price %></p>
-              <p>Volume: <%= @stock_quote.iex_volume %></p>
-              <p>52-week high: <%= @stock_quote.week_52_high %></p>
-              <p>52-week low: <%= @stock_quote.week_52_low %></p>
-              <p>PE Ratio: <%= @stock_quote.pe_ratio %></p>
-              <p>Change: <%= @stock_quote.change %></p>
-            </div>
-          <% end %>
-        </div>
-      </section>
+    <div class="w-1/2 overflow-x-auto  max-h-[650px] border border-white border-2">
+      <div class="flex flex-col items-center">
+        <table class="bg-gray-900 w-full rounded-lg">
+          <thead>
+            <tr>
+              <th class="px-4 py-2">Action</th>
+              <th class="px-4 py-2">Symbol</th>
+              <th class="px-4 py-2">Quantity</th>
+              <th class="px-4 py-2">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @transactions.present? %>
+              <% @transactions.each do |transaction| %>
+                <tr>
+                  <td class="<%= transaction.action == 'buy' ? 'text-green-500' : 'text-red-500' %> px-4 py-2"><%= transaction.action.capitalize %></td>
+                  <td class="px-4 py-2"><%= transaction.symbol.upcase %></td>
+                  <td class="px-4 py-2"><%= transaction.quantity %></td>
+                  <td class="px-4 py-2"><%= transaction.price %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     </div>
   </div>

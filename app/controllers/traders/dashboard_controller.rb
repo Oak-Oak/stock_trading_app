@@ -5,7 +5,7 @@ class Traders::DashboardController < ApplicationController
     def index
       @transactions = current_user.transactions.group_by(&:symbol)
       @total_quantity_per_stock = calculate_total_quantity_per_stock(@transactions)
-
+      @transactions = current_user.transactions
       fetch_stock_quote if params[:symbol].present?
     end
   
