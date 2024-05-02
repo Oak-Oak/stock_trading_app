@@ -84,3 +84,6 @@ gem 'devise', '~> 4.9'
 gem 'iex-ruby-client', '~> 2.1'
 
 gem 'tailwindcss-rails', '~> 2.4'
+
+gem "rails_charts"
+

@@ -1,10 +1,6 @@
-<div class="bg-slate-950 text-white min-h-screen flex flex-col">
+<div class="bg-slate-950 text-white min-h-screen">
 
-
-
-
-
-  <div class="bg-gray-900 flex items-center justify-between p-4">
+  <div class="bg-gray-900 col-span-3 flex items-center justify-between p-4">
     <h1 class="text-3xl font-bold">Trade</h1>
 
     <div class="flex items-center gap-4">
@@ -17,6 +13,7 @@
     </div>
   </div>
 
+<<<<<<< Updated upstream
   <p class="text-lg mb-2 p-4">Account Value: <%= current_user.account_value %></p>
   <div class="flex justify-between mx-8 mt-8">
     
@@ -26,53 +23,119 @@
             <%= form.text_field(:symbol, placeholder: "Enter stock symbol", class: "p-2 border border-gray-400 rounded-md text-black") %>
             <%= form.submit("Search", class: "mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700") %>
           <% end %>
+=======
+>>>>>>> Stashed changes
 
-          <% if @stock_quote.present? %>
-            <div class="mt-4">
-              <h2>Stock Price for <%= @stock_quote.company_name %></h2>
-              <p>Latest price: <%= @stock_quote.latest_price %></p>
-              <p>Volume: <%= @stock_quote.iex_volume %></p>
-              <p>52-week high: <%= @stock_quote.week_52_high %></p>
-              <p>52-week low: <%= @stock_quote.week_52_low %></p>
-              <p>PE Ratio: <%= @stock_quote.pe_ratio %></p>
-              <p>Change: <%= @stock_quote.change %></p>
-            </div>
-          <% end %>
+  <p class="text-lg mb-2 p-4 ">Account Value: <%= current_user.account_value %></p>
+
+
+   <!-- Chart -->
+      <div class="flex items-center">
+        <% if @line_chart_data.present? %>
+          <div class="w-full">
+            <%= line_chart @line_chart_data, class: 'box',
+              options: {
+                title: {
+                  text: @stock_quote.company_name,
+                  left: 'center'
+                }
+              }
+            %>
+          </div>
+        <% else %>
+          <div class="w-full">
+            <%= bar_chart [[0]], class: 'box',
+              options: {
+                title: {
+                  text: "Stock Price",
+                  left: 'center'
+                },
+                xAxis: {
+                  type: 'category',
+                  data: ['']
+                },
+                yAxis: {
+                  type: 'value'
+                }
+              }
+            %>
+          </div>
+        <% end %>
+      </div>
+
+
+
+  <!-- forms -->
+  <div class="flex justify-center items-center ">
+
+   <!-- buy -->
+    <div class="flex flex-col items-center justify-center p-4 border border-white">
+      <%= form_with(url: trader_transactions_path, method: :post, class: "flex flex-col items-center") do |form| %>
+        <div class="mb-4">
+          <%= form.label :symbol, "Stock Symbol", class: "block text-lg" %>
+          <%= form.text_field :symbol, class: "px-4 py-2 border border-gray-400 rounded-md text-black" %>
         </div>
-      </section>
+        <div class="mb-4">
+          <%= form.label :quantity, "Quantity", class: "block text-lg" %>
+          <%= form.number_field :quantity, class: "px-4 py-2 border border-gray-400 rounded-md text-black" %>
+        </div>
+        <%= form.submit "Buy", class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+      <% end %>
+    </div>
 
-   <div class="w-1/2">
-  <div class="flex flex-col items-center mb-8">
-    <%= form_with(url: trader_transactions_path, method: :post, class: "flex flex-col items-center") do |form| %>
-      <div class="mb-4">
-        <%= form.label :symbol, "Stock Symbol", class: "block text-lg" %>
-        <%= form.text_field :symbol, class: "px-4 py-2 border border-gray-400 rounded-md text-black" %>
+    <!-- search -->
+    <div class="flex flex-col items-center justify-center p-4 border border-white ">
+      <div class="flex flex-col items-center justify-center max-w-3/4">
+        <%= form_with(url: trader_transactions_path(trader_id: current_user.id), method: "get", class: "mt-4") do |form| %>
+          <%= form.text_field(:symbol, placeholder: "Enter stock symbol", class: "p-2 border border-gray-400 rounded-md text-black") %>
+          <%= form.submit("Search", class: "mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700") %>
+        <% end %>
+        
+        <% if @stock_quote.present? %>
+          <div class="mt-4 w-full">
+            <h2>Stock Price for <%= @stock_quote.company_name %></h2>
+            <p>Latest price: <%= @stock_quote.latest_price %></p>
+            <p>Volume: <%= @stock_quote.iex_volume %></p>
+            <p>52-week high: <%= @stock_quote.week_52_high %></p>
+            <p>52-week low: <%= @stock_quote.week_52_low %></p>
+            <p>PE Ratio: <%= @stock_quote.pe_ratio %></p>
+            <p>Change: <%= @stock_quote.change %></p>
+          </div>
+        <% end %>
       </div>
-      <div class="mb-4">
-        <%= form.label :quantity, "Quantity", class: "block text-lg" %>
-        <%= form.number_field :quantity, class: "px-4 py-2 border border-gray-400 rounded-md text-black" %>
-      </div>
-      <%= form.submit "Buy", class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
-    <% end %>
+    </div>
+
+    <!-- sell -->
+
+    <div class="flex flex-col items-center justify-center p-4 border border-white">
+      <%= form_with(url: sell_trader_transactions_path, method: :post, class: "flex flex-col items-center") do |form| %>
+        <%= form.hidden_field :action, value: "sell" %>
+        <div class="mb-4">
+          <%= form.label :symbol, "Stock Symbol", class: "block text-lg" %>
+          <%= form.text_field :symbol, class: "px-4 py-2 border border-gray-400 rounded-md text-black" %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :quantity, "Quantity", class: "block text-lg" %>
+          <%= form.number_field :quantity, class: "px-4 py-2 border border-gray-400 rounded-md text-black" %>
+        </div>
+        <%= form.submit "Sell", class: "px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700" %>
+      <% end %>
+    </div>
   </div>
 
-  <div class="flex flex-col items-center">
-    <%= form_with(url: sell_trader_transactions_path, method: :post, class: "flex flex-col items-center") do |form| %>
-      <%= form.hidden_field :action, value: "sell" %>
-      <div class="mb-4">
-        <%= form.label :symbol, "Stock Symbol", class: "block text-lg" %>
-        <%= form.text_field :symbol, class: "px-4 py-2 border border-gray-400 rounded-md text-black" %>
-      </div>
-      <div class="mb-4">
-        <%= form.label :quantity, "Quantity", class: "block text-lg" %>
-        <%= form.number_field :quantity, class: "px-4 py-2 border border-gray-400 rounded-md text-black" %>
-      </div>
-      <%= form.submit "Sell", class: "px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700" %>
-    <% end %>
-  </div>
-</div>
+
+
+
+
+
+
+  
+
+
+
+ 
+
+
 
 
 </div>
-
-

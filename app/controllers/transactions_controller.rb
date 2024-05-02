@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
 
   def index
     @transactions = current_user.transactions
-    fetch_stock_quote if params[:symbol].present?
+    fetch_stock_quote_and_chart if params[:symbol].present?
   end
 
   def create
@@ -55,11 +55,29 @@ class TransactionsController < ApplicationController
     @client = IEX::Api::Client.new
   end
 
+  def fetch_stock_quote_and_chart
+    fetch_stock_quote
+    @line_chart_data = fetch_stock_chart_data(@symbol)
+  end
+
   def fetch_stock_quote
     @client = IEX::Api::Client.new
     @symbol = params[:symbol]
     @stock_quote = @client.quote(@symbol)
+    @chart_data = fetch_stock_chart_data(@symbol)
   end
+
+  def fetch_stock_chart_data(symbol)
+    historical_data = @client.chart(symbol, '5y')
+    chart_data = {}
+  
+    historical_data.each do |data|
+      chart_data[data.date.strftime("%Y-%m-%d")] = data.close
+    end
+  
+    chart_data
+  end
+  
 
   def ensure_sufficient_funds(transaction_cost)
     raise "Insufficient funds." if current_user.account_value < transaction_cost
@@ -87,7 +105,7 @@ class TransactionsController < ApplicationController
     flash[:success] = "Transaction successful."
 
     puts @transaction
-    redirect_to trader_transactions_path
+    redirect_to action: :index, symbol: @symbol
   end
 
   def ensure_sufficient_stocks(symbol, quantity)
