@@ -15,7 +15,7 @@
   </div>
 
 
-  <p class="text-lg mb-2 p-4 ">Account Value: <%= current_user.account_value %></p>
+  
 
 
    <!-- Chart -->
@@ -56,6 +56,7 @@
 
     <!-- search -->
     <div class="flex flex-col items-center justify-center p-2 ">
+      <p class="text-lg mb-2 p-4 ">Account Value: <%= current_user.account_value %></p>
       <div class="flex flex-col items-center justify-center max-w-3/4">
         <%= form_with(url: trader_transactions_path(trader_id: current_user.id), method: "get", class: "mt-4") do |form| %>
           <%= form.text_field(:symbol, placeholder: "Enter stock symbol", class: "p-2 border border-gray-400 rounded-md text-black") %>
