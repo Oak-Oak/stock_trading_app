@@ -13,18 +13,6 @@
     </div>
   </div>
 
-<<<<<<< Updated upstream
-  <p class="text-lg mb-2 p-4">Account Value: <%= current_user.account_value %></p>
-  <div class="flex justify-between mx-8 mt-8">
-    
-      <section class="flex flex-col items-center justify-center p-4 border border-white">
-        <div class="flex flex-col items-center justify-center max-w-3/4">
-          <%= form_with(url: trader_transactions_path(:trader_id), method: "get", class: "mt-4") do |form| %>
-            <%= form.text_field(:symbol, placeholder: "Enter stock symbol", class: "p-2 border border-gray-400 rounded-md text-black") %>
-            <%= form.submit("Search", class: "mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700") %>
-          <% end %>
-=======
->>>>>>> Stashed changes
 
   <p class="text-lg mb-2 p-4 ">Account Value: <%= current_user.account_value %></p>
 
@@ -104,6 +92,9 @@
         <% end %>
       </div>
     </div>
+
+
+   
 
     <!-- sell -->
 
