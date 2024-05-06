@@ -25,13 +25,22 @@ class Traders::DashboardController < ApplicationController
   
     def calculate_total_quantity_per_stock(transactions)
       total_quantity_per_stock = {}
-  
+    
       transactions.each do |symbol, symbol_transactions|
-        total_quantity_per_stock[symbol] = symbol_transactions.sum(&:quantity)
+        total_quantity = 0
+        symbol_transactions.each do |transaction|
+          if transaction.action == 'buy'
+            total_quantity += transaction.quantity
+          elsif transaction.action == 'sell'
+            total_quantity -= transaction.quantity
+          end
+        end
+        total_quantity_per_stock[symbol] = total_quantity
       end
-  
+    
       total_quantity_per_stock
     end
+    
 
     def initialize_iex
       @client = IEX::Api::Client.new

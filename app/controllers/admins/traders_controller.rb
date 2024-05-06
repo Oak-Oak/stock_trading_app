@@ -51,10 +51,15 @@ class Admins::TradersController < ApplicationController
     def calculate_total_quantity_per_stock(transactions)
       total_quantity_per_stock = Hash.new(0)
       transactions.each do |transaction|
-        total_quantity_per_stock[transaction.symbol] += transaction.quantity
+        if transaction.action == 'buy'
+          total_quantity_per_stock[transaction.symbol] += transaction.quantity
+        elsif transaction.action == 'sell'
+          total_quantity_per_stock[transaction.symbol] -= transaction.quantity
+        end
       end
       total_quantity_per_stock
     end
+    
 
     def user_params
       params.require(:user).permit(:email, :password, :approved, :isAdmin)

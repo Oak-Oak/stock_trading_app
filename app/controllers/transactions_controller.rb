@@ -109,8 +109,9 @@ class TransactionsController < ApplicationController
   end
 
   def ensure_sufficient_stocks(symbol, quantity)
-    total_quantity = current_user.transactions.where(symbol: symbol).sum(:quantity)
+    total_quantity = current_user.transactions.where(symbol: symbol, action: 'buy').sum(:quantity)
     raise "Insufficient quantity of stocks." if total_quantity < quantity
   end
+  
 
 end
